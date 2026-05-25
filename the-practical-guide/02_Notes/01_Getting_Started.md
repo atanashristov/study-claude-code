@@ -2,7 +2,7 @@
 
 ## 01. Getting Stared
 
-### 01.04: Claude Code in Different Terminals
+### 01.04. Claude Code in Different Terminals
 
 Which terminal we are using and what are the shortcuts differs based on platform and terminal.
 
@@ -18,7 +18,7 @@ See:
 - [Supported platforms](https://code.claude.com/docs/en/interactive-mode)
 - [Terminal instructions](https://code.claude.com/docs/en/terminal-config)
 
-### 01.05: Using Bun
+### 01.05. Using Bun
 
 For this course's demo project, we are using the Bun runtime.
 
@@ -31,7 +31,7 @@ See:
 
 - [Bum installation](https://bun.com/docs/installation)
 
-### 01.08: Configuring Claude Code
+### 01.08. Configuring Claude Code
 
 The configuration can be:
 
@@ -68,13 +68,13 @@ Create `.claude/settings.json` within the project's folder that holds global set
 
 We can also create `.claude/settings.local` within the project's folder. It holds local settings for the project and overrides the global settings and the project's global settings. the idea is hat *it is not checked in to the source control*. The member of the team can override settings locally for their needs.
 
-### 01.09: Choosing AI Models
+### 01.09. Choosing AI Models
 
 The `/model` command let's you choose the AI model you want to use.
 
 We can also change the model by using `OPTION + P` on Mac or `ALT+P` on Windows PC.
 
-### 01.10: Understanding Sessions & Context
+### 01.10. Understanding Sessions & Context
 
 `/clear` command clears the current session and the context window related to the session.
 
@@ -84,7 +84,7 @@ Session starts with running `claude`. We can also run multiple sessions on the s
 
 `/usage` command shows the remaining usage per the Claude Code plan.
 
-### 01.11: When to Start a new Session & Making Sense of Compaction
+### 01.11. When to Start a new Session & Making Sense of Compaction
 
 The **context window** has a limited size.
 
@@ -94,7 +94,7 @@ When Clade Code runs out of space, it **compacts** the conversation, by **genera
 
 Since compaction WILL lead to loss of information, it's typically a good idea to keep sessions concise and focused. When working on a new feature, you want to use a new session (by starting a new Claude Code instance in a new terminal window, or via the `/clear` command). Also, use `/clear` when Claude Code gets stuck.
 
-### 01.12: Core Features You May Not Know
+### 01.12. Core Features You May Not Know
 
 When we run `claude` it starts the interactive CLI.
 
@@ -106,7 +106,7 @@ We can also run `claude -p "prompt-text-here"` and it will not start the interac
 
 Or if we simply want to start Claude Code CLI with the last session that we worked on, we simply run `claude -c`.
 
-### 01.13: Advanced Permissions
+### 01.13. Advanced Permissions
 
 Claude code asks for permissions: to edit files, create commits, etc.
 
@@ -118,7 +118,7 @@ We can run Claude with accepting all permissions upfront:
 claude --dangerously-skip-permissions
 ```
 
-### 01.14: Running Claude Code via Docker Sandboxes
+### 01.14. Running Claude Code via Docker Sandboxes
 
 Run Claude Code in a Docker sandbox with access to the local project, but not to the entire file system:
 
@@ -128,7 +128,7 @@ docker sandbox run claude [...params]
 
 It runs then by default in the dangerously skip permissions mode.
 
-### 01.15: Using Claude Code's Native Sandboxing
+### 01.15. Using Claude Code's Native Sandboxing
 
 Claude Code has a build in sandbox. Inside a Claude Code session, run the command: `/sandbox`.
 
@@ -144,7 +144,7 @@ See:
 
 - [Claude Code Sandbox](https://code.claude.com/docs/en/sandboxing)
 
-### 01.16: Undoing Actions & Importance of Version Control
+### 01.16. Undoing Actions & Importance of Version Control
 
 Option 1: Use git. Create commit frequently.
 
