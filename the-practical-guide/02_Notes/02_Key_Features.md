@@ -339,3 +339,63 @@ Now this prompt should use the new DocsExplorer subagent:
 > We are building @SPEC.MD .
 >
 > Please evaluate the existing codebase to check whether authentication and database access are implemented correctly (in line with the expectations explained in @SPEC.MD and the official documentation for the libraries / technologies used).
+
+### 02.32. Introducing Agent Skills
+
+These are standard skills supported by other AI tools like Cursor.
+
+**Agent Skills:**
+
+Extra, dynamically loaded, context
+
+Example: A document or combination of documents that describes React Component Best Practices
+
+**SKILL.md:** Always has to be declared. Optional:
+
+- extra `.md` documents
+- `references/` folder
+- `scripts/` folder
+- `assets/` folder
+
+### 02.33. Adding Custom Skills
+
+Create `.claude/skills` folder and add **one subfolder per skill**.
+
+Here is an example of ".claude/skills/modern-best-practice-react-components/SKILL.md".
+
+The `name` **must be the same of the folder** and includes some keywords.
+The `description` is just a free text to help Claude decide.
+
+```txt
+---
+name: modern-best-practice-react-components
+description: Build clean, modern React components that apply common best practices and avoid common pitfalls like unnecessary state management or useEffect usage
+---
+
+# Writing React Components
+...
+```
+
+They are mot loaded by Claude by default, unlike `CLAUDE.md` which are always loaded. The skills are discovered and loaded dynamically.
+
+Once this skill is loaded, more skills can be loaded dynamically. Thereof we can reference additional documents, we are using the `references/` subfolder of the skill:
+
+```md
+## State Management
+
+- **AVOID** `useEffect()`
+  - See the ["You Might Not Need An Effect" guide](references/you-dont-need-useeffect.md) for detailed guidance
+```
+
+We can add the skills globally into `~/.claude/skills/`, it is a question though how much we want to add globally, as most likely the skills are technology and project specific.
+
+We can now write a prompt like this and see the skills being discovered:
+
+> Let's add a proper authentication route / page content to this app. We only support email + password auth.
+>
+> No password resetting for this demo app.
+
+See:
+
+- [Extend Claude with Skills](https://code.claude.com/docs/en/skills#frontmatter-reference)
+- [Downloadable skills from course](https://github.com/academind/claude-code-course-resources/blob/main/other/skills.zip)
