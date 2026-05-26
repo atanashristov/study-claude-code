@@ -219,3 +219,91 @@ We want changes on login and register. Press `4` and tell what we want to change
 > I only want oa single "/authenticate" route which supports only email + password.
 
 Then press `1` to auto-approve the edit mode.
+
+### 02.27. Using Claude Code's Built-in Tools
+
+We `/clear` the context and run a new prompt:
+
+> Implement authentication and database access.
+>
+> Add a "lib" folder with "auth.ts" and "db.ts" files. Export a db handle in the db.ts file and make sure WAL mode is used and all required tables are created if they don't exist yet.
+
+We are following the instructions from:
+
+- [Bun SQLite instructions](https://bun.com/docs/runtime/sqlite) for the "db.ts"
+- [Better-auth SQLite instructions](https://better-auth.com/docs/adapters/sqlite) for the "auth.ts"
+
+Without providing these details in the instructions, we may get something wrong. We can *copy and paste the documentation* from the web sites:
+
+> Here are the instructions from Bun sqlite page:
+>
+> <instructions-from-bun-webpage>
+> ...paste here...
+> </instructions-from-bun-webpage>
+
+We can also *list the urls* to the pages:
+
+> Follow the instructions from the online documentation:
+>
+> - [Bun SQLite instructions](https://bun.com/docs/runtime/sqlite) for the "db.ts"
+> - [Better-auth SQLite instructions](https://better-auth.com/docs/adapters/sqlite) for the "auth.ts"
+
+Or we could use MCP server.
+
+### 02.28. Using MCP Servers & More On Permissions
+
+One helpful MCP server is [Context7 Platform - Up-to-date Code Docs For Any Prompt](https://github.com/upstash/context7). It gives Claude Code access to documentation for frameworks.
+
+Follow the [Claude Code installation instructions for Context7](https://context7.com/docs/resources/all-clients#claude-code)
+
+```sh
+claude mcp add --scope user context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
+```
+
+We can *remove the API key*, as this is for paid access:
+
+```sh
+claude mcp add context7 --scope user -- npx -y @upstash/context7-mcp
+
+...
+Added stdio MCP server context7 with command: npx -y @upstash/context7-mcp to user config
+File modified: /Users/tony.hristov/.claude.json
+```
+
+**Notes:**
+
+- I needed to `proto install npm 11.15.0`
+- The `--scope` user flag makes it available globally across all your projects.
+
+Then run `claude` and type `/mcp`. You should see the context7 MCP server:
+
+Now this could be our prompt:
+
+> Implement authentication and database access as described in @SPEC.md .
+>
+> Add a "lib" folder with "auth.ts" and "db.ts" files. Export a db handle in the db.ts file and make sure WAL mode is used and all required tables are created if they don't exist yet.
+>
+> Use web search or context7 MCP to find the relevant documentation for Bun SQLite and better-auth setup (with next.js and Bun SQLite).
+
+Tap `SHIRT+TAB` to switch to *plan mode* and execute.
+
+### 02.29. Understanding Subagents
+
+If we run the following prompt:
+
+> We are building @SPEC.MD .
+>
+> Please evaluate the existing codebase to check whether authentication and database access are implemented correctly (in line with the expectations explained in @SPEC.MD and the official documentation for the libraries / technologies used).
+>
+> Use web search or the context7 mcp to look up docs.
+
+We will see multiple *tasks running in parallel*, like "Calling context4". Claude code *delegates certain tasks to code agents* to:
+
+- speed up work
+- use expertize of specific agents
+
+The subagents do not pollute the main context window, as they operate on their context windows.
+
+### 02.30. Creating & Using a Custom Subagent
+
+We add the agents into `.claude/agents` folder.
