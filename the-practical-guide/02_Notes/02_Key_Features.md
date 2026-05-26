@@ -306,4 +306,36 @@ The subagents do not pollute the main context window, as they operate on their c
 
 ### 02.30. Creating & Using a Custom Subagent
 
-We add the agents into `.claude/agents` folder.
+We add the agents locally to the project into `.claude/agents` subfolder.
+
+Note: We can also add agents globally into `~/.claude/agents` subfolder of user's home folder.
+
+It describes the tools and the LLM model to use:
+
+```md
+tools: WebFetch, WebSearch, Skill, MCPSearch
+model: sonnet
+```
+
+The available models are *sonnet, opus and haiku*. Probably the cheapest "haiku" is also fine for this task and is also faster.
+
+See:
+
+- [Tools available to Claude](https://code.claude.com/docs/en/settings#tools-available-to-claude)
+- [Claude tools reference](https://code.claude.com/docs/en/tools-reference)
+- [DocsExplorer.md](https://github.com/academind/claude-code-course-resources/blob/main/other/subagent/DocsExplorer.md)
+
+### 02.31. Encouraging Agent Usage
+
+Provide instructions into `CLAUDE.md` file to encourage Claude to use the Agent:
+
+```txt
+Whenever working with any third-party library or something similar, you MUST look up the official documentation to ensure that you're working with up-to-date information.
+Use the DocsExplorer subagent for efficient documentation lookup.
+```
+
+Now this prompt should use the new DocsExplorer subagent:
+
+> We are building @SPEC.MD .
+>
+> Please evaluate the existing codebase to check whether authentication and database access are implemented correctly (in line with the expectations explained in @SPEC.MD and the official documentation for the libraries / technologies used).
